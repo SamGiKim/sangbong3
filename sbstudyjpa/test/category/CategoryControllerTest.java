@@ -1,5 +1,6 @@
 package com.softagape.myjpa.category;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -7,6 +8,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -18,6 +20,13 @@ public class CategoryControllerTest {
     @Autowired
     private TestRestTemplate testRestTemplate;
 
+//    @BeforeEach
+//    public void init() {
+//        this.testRestTemplate.getRestTemplate().setRequestFactory(
+//                new HttpComponentsClientHttpRequestFactory()
+//        );
+//    }
+
     @Test
     public void CategoryTest() {
         String url = "http://localhost:" + port;
@@ -27,12 +36,58 @@ public class CategoryControllerTest {
         assertThat(responseInsert).isNotNull();
         assertThat(responseInsert.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
 
-        CategoryDto requestInsert2 = CategoryDto.builder().name("RestFulAPI Input").build();
-        ResponseEntity<CategoryDto> responseInsert2 = this.testRestTemplate.postForEntity(url + "/ct"
+        CategoryDto requestInsert2 = CategoryDto.builder().name("RestFull").build();
+        ResponseEntity<CategoryDto> responseInsert2 = this.testRestTemplate.postForEntity(
+                url + "/ct"
                 ,requestInsert2, CategoryDto.class);
         assertThat(responseInsert2).isNotNull();
         assertThat(responseInsert2.getStatusCode()).isEqualTo(HttpStatus.OK);
         System.out.println("responseInsert2.getBody().getId() = " + responseInsert2.getBody().getId());
-        assertThat(responseInsert2.getBody().getName()).isEqualTo("RestFulAPI Input");
+        assertThat(responseInsert2.getBody()).isNotNull();
+        assertThat(responseInsert2.getBody().getName()).isEqualTo("RestFull");
+
+        // Category Find Test
+        Long insertId = responseInsert2.getBody().getId();
+        ResponseEntity<CategoryDto> findEntity = this.testRestTemplate.getForEntity(
+                url + "/ct/" + insertId.toString()
+                , CategoryDto.class
+        ); // CategoryController 의 findById 가 실행된다.
+        assertThat(findEntity).isNotNull();
+        assertThat(findEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+        ICategory resultFind = findEntity.getBody();
+        assertThat(resultFind).isNotNull();
+        assertThat(resultFind.getId()).isEqualTo(insertId);
+        assertThat(resultFind.getName()).isEqualTo("RestFull");
+
+        ResponseEntity<CategoryDto> notfindEntity = this.testRestTemplate.getForEntity(
+                url + "/ct/99999999"
+                , CategoryDto.class
+        );
+        assertThat(notfindEntity).isNotNull();
+        assertThat(notfindEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+
+        // Category Update Test
+        ICategory update = CategoryDto.builder().build();
+        update.copyFields(resultFind);
+        update.setName("NoRest");
+        CategoryDto resultObject = this.testRestTemplate.patchForObject(
+                url + "/ct/" + update.getId()
+                , update
+                , CategoryDto.class
+        );
+        assertThat(resultObject).isNotNull();
+        assertThat(resultObject.getName()).isEqualTo("NoRest");
+
+        // Category Delete Test
+        ICategory delete = CategoryDto.builder().id(update.getId()).build();
+        this.testRestTemplate.delete(url + "/ct/" + delete.getId());
+
+        ResponseEntity<CategoryDto> deleteEntity = this.testRestTemplate.getForEntity(
+                url + "/ct/" + delete.getId()
+                , CategoryDto.class
+        );
+        assertThat(deleteEntity).isNotNull();
+        assertThat(deleteEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 }
