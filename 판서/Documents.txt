@@ -950,3 +950,48 @@ CategoryJpaRepository : PhoneBookJpaRepository 를 참고해서 만들어요.
 ICategoryService : IPhoneBookService 를 참고해서 만들어요.
 CategoryServiceImpl : PhoneBookServiceImpl 을 참고해서 만들어요.
 CategoryController : PhoneBookController 를 참고해서 만들어요.
+
+
+
+일반적 Java Web Project 폴더구조
+src
+    main
+        java
+            java 패키지/소스들
+        resources
+            Web 이 실행되는 자원들 (설정파일, 화면파일, css 파일, JavaScript 파일, 그림파일)
+        webapp
+            JSP 파일
+    test
+        (Junit test : java package 구조랑 같아야 한다.)
+
+
+Mybatis 규칙
+        Mybatis 를 정의하는 java interface 소스파일 안의 메소드이름, 매개변수데이터형 과
+        Mybatis xml 파일
+                <insert id="메소드이름" parameterType="매개변수데이터형"
+                <update id="메소드이름"
+                <delete id="메소드이름"
+                <select id="메소드이름"
+        이 같아야 한다.
+
+
+
+1. Server => New => Apache Tomcat 9 생성
+2. Tomcat 의 Context 에 프로젝트 추가
+3. Tomcat 9 의 Port 번호 변경
+4. Project 메뉴 => Clean 또는 Build All
+5. Server => Debug 시작 (에러시 에러 해결)
+6. 브라우저에서 http://localhost:Port번호/Context에 추가된 프로젝트명 으로 접속
+7. Database 는 메모리 DB 이므로 Tomcat 재시작하면 데이터가 다시 초기화됨
+8. resources => egovframework => spring => context-datasource.xml 파일에서
+ HSQL 을 주석처리 하고 Mysql 을 주석 해제한다.
+9. Mysql 관련 라이브러리 commons-dbcp, mysql-connector-java 를 maven repository 에서 찾는다.
+10. pom.xml 에 관련라이브러리를 추가한다.
+11. context-datasource.xml 파일에 driverClassName, url, username, password 을 맞게 수정한다.
+12. 4번으로 올라가서 Project => Clean 또는 Build All 한다. 6번까지 실행한다.
+13. *.war 파일로 만들어야 한다.
+14. *.war 파일을 Tomcat 설치 디렉토리의 webapp 폴더에 복사한다.
+15. Tomcat\bin\startup.bat 를 실행한다. Port 충돌시 conf\server.xml 에서 포트번호 수정
+16. Tomcat 에러 발생 시 에러 해결하고 브라우저에서 확인한다. http://localhost:포트번호/*.war 파일명
+17. Tomcat\bin\shutdown.bat 를 실행하여 Tomcat 중지 확인한다.
