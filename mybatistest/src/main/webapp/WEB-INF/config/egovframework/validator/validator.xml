@@ -17,6 +17,12 @@
         		<arg0 key="title.sample.regUser" />
 			</field>
         </form>
+        
+        <form name="createDto">
+        	<field property="name" depends="required">
+        		<arg0 key="title.sample.name" />
+			</field>
+        </form>
     </formset>
 
 </form-validation>
