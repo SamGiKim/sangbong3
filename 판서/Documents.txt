@@ -959,7 +959,7 @@ src
         java
             java 패키지/소스들
         resources
-            Web 이 실행되는 자원들 (설정파일, 화면파일, css 파일, JavaScript 파일, 그림파일)
+            Web 이 실행되는 자원들 (설정파일, 화면파일, css 파일, JavaScript 파일, 그림파일, Mybatis sql xml)
         webapp
             JSP 파일
     test
