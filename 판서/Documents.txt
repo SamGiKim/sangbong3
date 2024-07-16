@@ -914,11 +914,21 @@ git
 
 
 
-drop database phonebook_db;
-drop user phonebook_user;
 create database phonebook_db character set utf8mb4 collate utf8mb4_general_ci;
 create user 'phonebook_user'@'%' identified by 'sangbong3!';
 grant all privileges on phonebook_db.* to 'phonebook_user'@'%' with grant option;
+flush privileges;
+
+create database egoventerprise_db character set utf8mb4 collate utf8mb4_general_ci;
+grant all privileges on egoventerprise_db.* to 'phonebook_user'@'%' with grant option;
+flush privileges;
+
+create database egovsimple_db character set utf8mb4 collate utf8mb4_general_ci;
+grant all privileges on egovsimple_db.* to 'phonebook_user'@'%' with grant option;
+flush privileges;
+
+create database egovportal_db character set utf8mb4 collate utf8mb4_general_ci;
+grant all privileges on egovportal_db.* to 'phonebook_user'@'%' with grant option;
 flush privileges;
 
 
