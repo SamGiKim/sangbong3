@@ -1005,3 +1005,17 @@ Mybatis 규칙
 15. Tomcat\bin\startup.bat 를 실행한다. Port 충돌시 conf\server.xml 에서 포트번호 수정
 16. Tomcat 에러 발생 시 에러 해결하고 브라우저에서 확인한다. http://localhost:포트번호/*.war 파일명
 17. Tomcat\bin\shutdown.bat 를 실행하여 Tomcat 중지 확인한다.
+
+
+
+
+전자정부프레임워크 초기 프로젝트 생성하기
+
+1. database 를 생성한다.
+2. database 에 접속할 사용자와 권한을 설정한다.
+3. 전자정부프레임워크 이클립스에서 New => Project => eGovFrame * Project 를 생성한다.
+4. 프로젝트의 name, groupid 등등을 설정한다.
+5. 프로젝트의 context-datasource.xml 또는 globals.properties 에서 DB 접속 url, user, password 를 설정한다.
+6. database 종류에 맞는 ddl.sql 쿼리와 data.sql 쿼리를 찾아서 SQL 접속하여 스크립트 실행한다.
+7. 프로젝트 clean 하고 servers 의 톰캣 Debug 실행한다.
+8. 로그인해서 암호 안 맞으면 로그에 있는 암호화문자열을 database 테이블의 암호 컬럼에 수정한다.
