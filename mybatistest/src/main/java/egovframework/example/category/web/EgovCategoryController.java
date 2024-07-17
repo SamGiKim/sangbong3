@@ -6,7 +6,6 @@ import javax.annotation.Resource;
 
 import org.egovframe.rte.fdl.property.EgovPropertyService;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.support.SessionStatus;
 import egovframework.example.category.service.CategoryDto;
 import egovframework.example.category.service.ICategoryService;
 import egovframework.example.category.service.SearchCategoryDto;
-import egovframework.example.sample.service.SampleDefaultVO;
 
 @Controller
 public class EgovCategoryController {
@@ -68,12 +66,6 @@ public class EgovCategoryController {
 	public String addCategory(@ModelAttribute("searchVO") SearchCategoryDto searchVO, CategoryDto categoryDto
 			, BindingResult bindingResult, Model model, SessionStatus status)
 			throws Exception {
-
-		if (bindingResult.hasErrors()) {
-			model.addAttribute("categoryDto", categoryDto);
-			return "category/egovCategoryRegister";
-		}
-
 		categoryService.insert(categoryDto);
 		status.setComplete();
 		return "forward:/egovCategoryList.do";

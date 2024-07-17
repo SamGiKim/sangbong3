@@ -8,6 +8,9 @@
 
 <body style="text-align:center; margin:0 auto; display:inline; padding-top:100px;">
 	<ul>
+		<li><a href="/sht_webapp">전자정부 심플 페이지</a></li>
+		<li><a href="/ebt_webapp">전자정부 엔터프라이즈 페이지</a></li>
+		<li><a href="/pst_webapp">전자정부 포털 페이지</a></li>
 		<li><a href="./egovSampleList.do">Sample List</a></li>
 		<li><a href="./egovCategoryList.do">Category List</a></li>
 	</ul>
