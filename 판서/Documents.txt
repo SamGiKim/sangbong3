@@ -971,7 +971,7 @@ src
         resources
             Web 이 실행되는 자원들 (설정파일, 화면파일, css 파일, JavaScript 파일, 그림파일, Mybatis sql xml)
         webapp
-            JSP 파일
+            JSP 파일, html 파일
     test
         (Junit test : java package 구조랑 같아야 한다.)
 
@@ -1019,3 +1019,42 @@ Mybatis 규칙
 6. database 종류에 맞는 ddl.sql 쿼리와 data.sql 쿼리를 찾아서 SQL 접속하여 스크립트 실행한다.
 7. 프로젝트 clean 하고 servers 의 톰캣에 web module 을 추가하고 Debug 실행한다.
 8. 로그인해서 암호 안 맞으면 로그에 있는 암호화문자열을 lettnemplyrinfo 또는 lettngnrlmber 테이블의 암호 컬럼에 수정한다.
+
+
+웹 서버/서비스/앱/어플리케이션 의 기본 구조
+
+1. 클라이언트 (브라우저, 클라이언트 프로그램) 가
+        http 프로토콜로 주소(서버/서비스/앱)와 method(GET/POST/...) 로 요청 Request
+2. http 주소와 method에 해당하는 서버의 Servlet, @Controller 이 요청을 받습니다.
+3. Servlet/@Controller 이 요청을 받은후 서버의 메소드에서 실행을 하고
+        응답(Response)을 클라이언트에 대답합니다.
+
+서버/서비스/앱/어플리케이션 개발자
+C,C++ CGI println, pintf html 문자열을 작성 해서 응답했음.
+html 파일을 직접 응답하는 웹 서버 등장 (정적파일) (Apache Web Server, ..)
+        => html, css, javascript, images, audio, movie 등등 정적파일을 요청한 그대로 응답한다.
+        => Web Server
+html 에 css 와 javascript (Client side script)동적인 화면을 만드는 파일들도 서비스합니다.
+서버/서비스/앱/어플리케이션 : RDBMS, 서버 I/F 처리하고 그 결과를 html 로 만들어서 서비스합니다.
+        서버사이드스크립트(Server side script) C/C++ GUI, PHP, ASP, ASPX, JSP (동적파일)
+                (Apache Tomcat Server, IIS, Jeus, Web Logic)
+        <%   <?   <@    <c:if, <c:while, <c:for 로직 처리
+Java 스프링 프레임워크
+PHP Laravel 프레임워크
+ASPX C#기반의 프레임워크
+Python Django 프레임워크
+Ruby XXX 프레임워크
+템플릿기반의 동적파일
+서버사이드스크립트 + 프레임워크 기능 지원하는 웹서버 => WAS (Web Application Server)
+
+기능 1개를 추가하는데 소모되는 시간 : 정적파일 약 8시간
+기능 1개를 추가하는데 소모되는 시간 : 동적파일 약 6시간
+기능 1개를 추가하는데 소모되는 시간 : 프레임워크 약 2시간
+
+Markup Language : 문서 <tag> ~~~ </tag>
+XML : 데이터를 markup 형태로 표현하는 문서 파일 root 는 1개
+HTML : web 의 화면을 구성하는 문서 파일 html 이라는 root, <hr>
+XHTML : html 은 end markup 이 없는 태그도 있으나 xhtml 은 end markup 을 항상 해야 한다.
+        즉 html 에 xml 의 문법을 적용했다.
+
+
