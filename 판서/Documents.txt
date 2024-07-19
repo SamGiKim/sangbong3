@@ -1024,8 +1024,8 @@ Mybatis 규칙
 웹 서버/서비스/앱/어플리케이션 의 기본 구조
 
 1. 클라이언트 (브라우저, 클라이언트 프로그램) 가
-        http 프로토콜로 주소(서버/서비스/앱)와 method(GET/POST/...) 로 요청 Request
-2. http 주소와 method에 해당하는 서버의 Servlet, @Controller 이 요청을 받습니다.
+        http/https 프로토콜로 주소(서버/서비스/앱)와 method(GET/POST/...) 로 요청 Request
+2. http/https 주소와 method에 해당하는 서버의 Servlet, @Controller 이 요청을 받습니다.
 3. Servlet/@Controller 이 요청을 받은후 서버의 메소드에서 실행을 하고
         응답(Response)을 클라이언트에 대답합니다.
 
@@ -1057,4 +1057,14 @@ HTML : web 의 화면을 구성하는 문서 파일 html 이라는 root, <hr>
 XHTML : html 은 end markup 이 없는 태그도 있으나 xhtml 은 end markup 을 항상 해야 한다.
         즉 html 에 xml 의 문법을 적용했다.
 
+CSS : 화면에 예쁜 스타일을 적용한다.
 
+인라인 Style : 요소 안에서 style="스타일"
+Internal Style : html 안에서 <style>~~~</style>
+External Style : html 밖에서 <link rel="stylesheet" href="스타일파일경로" />
+
+Style 을 적용할려면 선택된 요소에 적용을 할 수 있다.
+선택하는 선택자가 중요합니다. Style 뿐 아니라 JavaScript 가 DOM (Document Object Model)을 이용하여
+화면을 동적으로 만들때도 매우 중요합니다. DOM 을 선택하기 위해서 입니다.
+
+선택자 { 속성 : 값; ===> CSS Style 문법 }
