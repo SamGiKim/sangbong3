@@ -968,8 +968,10 @@ src
     main
         java
             java 패키지/소스들
+            @Controller 클래스의 @Request, @PostRequest, @GetRequest, 등등이
+            선언된 메소드의 리턴값이 문자열 return "[디렉토리명/디렉토리명/]템플릿 화면파일 이름"
         resources
-            Web 이 실행되는 자원들 (설정파일, 화면파일, css 파일, JavaScript 파일, 그림파일, Mybatis sql xml)
+            Web 이 실행되는 자원들 (설정파일, 템플릿 화면파일, css 파일, JavaScript 파일, 그림파일, Mybatis sql xml)
         webapp
             JSP 파일, html 파일
     test

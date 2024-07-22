@@ -9,15 +9,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" href="./assets/compiled/css/app.css">
     <link rel="stylesheet" href="./assets/compiled/css/app-dark.css">
-    <style>
-        .type01 {
-            font-size: 50pt;
-        }
-    </style>
 </head>
 
 <body>
-<!-- <script src="assets/static/js/initTheme.js"></script> -->
 <div id="app">
 	<jsp:include page="./html/sidebar.html"/>
     <div id="main">
@@ -41,9 +35,5 @@
         </div>
     </div>
 </div>
-<!-- <script src="assets/static/js/components/dark.js"></script> -->
-<!-- <script src="assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script> -->
-<script src="assets/compiled/js/app.js"></script>
 </body>
-<%-- <c:import url="./index.html" /> --%>
 </html>

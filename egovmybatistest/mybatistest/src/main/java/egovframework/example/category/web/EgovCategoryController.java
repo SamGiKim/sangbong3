@@ -30,7 +30,7 @@ public class EgovCategoryController {
 	@Resource(name = "propertiesService")
 	protected EgovPropertyService propertiesService;
 
-	@RequestMapping(value = "/egovCategoryList.do")
+	@RequestMapping(value = "/category/egovCategoryList.do")
 	public String selectList(@ModelAttribute("searchVO") SearchCategoryDto searchVO, ModelMap model) throws Exception {
 
 		searchVO.setPageUnit(propertiesService.getInt("pageUnit"));
@@ -56,22 +56,22 @@ public class EgovCategoryController {
 		return "category/egovCategoryList";
 	}
 
-	@RequestMapping(value = "/addCategory.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/category/addCategory.do", method = RequestMethod.POST)
 	public String addCategoryView(@ModelAttribute("searchVO") SearchCategoryDto searchVO, Model model) throws Exception {
 		model.addAttribute("categoryDto", new CategoryDto());
 		return "category/egovCategoryRegister";
 	}
 	
-	@RequestMapping(value = "/insertCategory.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/category/insertCategory.do", method = RequestMethod.POST)
 	public String addCategory(@ModelAttribute("searchVO") SearchCategoryDto searchVO, CategoryDto categoryDto
 			, BindingResult bindingResult, Model model, SessionStatus status)
 			throws Exception {
 		categoryService.insert(categoryDto);
 		status.setComplete();
-		return "forward:/egovCategoryList.do";
+		return "forward:/category/egovCategoryList.do";
 	}
 
-	@RequestMapping("/updateCategoryView.do")
+	@RequestMapping("/category/updateCategoryView.do")
 	public String updateCategoryView(@RequestParam("selectedId") Long id, @ModelAttribute("searchVO") SearchCategoryDto searchVO, Model model) throws Exception {
 		CategoryDto categoryDto = new CategoryDto();
 		categoryDto.setId(id);
@@ -83,19 +83,19 @@ public class EgovCategoryController {
 		return categoryService.findById(categoryDto.getId());
 	}
 
-	@RequestMapping("/updateCategory.do")
+	@RequestMapping("/category/updateCategory.do")
 	public String updateCategory(@ModelAttribute("searchVO") SearchCategoryDto searchVO, CategoryDto categoryDto
 			, BindingResult bindingResult, Model model, SessionStatus status)
 			throws Exception {
 		categoryService.update(categoryDto.getId(), categoryDto);
 		status.setComplete();
-		return "forward:/egovCategoryList.do";
+		return "forward:/category/egovCategoryList.do";
 	}
 
-	@RequestMapping("/deleteCategory.do")
+	@RequestMapping("/category/deleteCategory.do")
 	public String deleteCategory(CategoryDto categoryDto, @ModelAttribute("searchVO") SearchCategoryDto searchVO, SessionStatus status) throws Exception {
 		categoryService.delete(categoryDto.getId());
 		status.setComplete();
-		return "forward:/egovCategoryList.do";
+		return "forward:/category/egovCategoryList.do";
 	}
 }
