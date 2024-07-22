@@ -1068,3 +1068,13 @@ Style 을 적용할려면 선택된 요소에 적용을 할 수 있다.
 화면을 동적으로 만들때도 매우 중요합니다. DOM 을 선택하기 위해서 입니다.
 
 선택자 { 속성 : 값; ===> CSS Style 문법 }
+
+배치(Batch) : 순서적으로 실행되는 기능들을 일괄적으로 한번에 처리함
+MS-DOS 시절의 배치파일 *.bat
+톰캣의 startup.bat, startup.sh, shutdown.bat, shutdown.sh
+
+css position :
+static :
+relative : 이전 요쇼를 기준으로 상대위치 좌표
+absolute : 부모가 relative 일 경우에 상대위치 좌표, 이것 외에는 화면의 0,0 기준으로 상대위치 좌표
+fixed : 화면의 절대 위치 좌표
