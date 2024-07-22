@@ -98,4 +98,9 @@ public class EgovCategoryController {
 		status.setComplete();
 		return "forward:/category/egovCategoryList.do";
 	}
+
+	@RequestMapping(value = "/sidebar.do", method = RequestMethod.GET)
+	public String addCategoryView(Model model) throws Exception {
+		return "inc/sidebar";
+	}
 }
