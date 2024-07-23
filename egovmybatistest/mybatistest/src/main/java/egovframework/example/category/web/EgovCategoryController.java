@@ -56,7 +56,7 @@ public class EgovCategoryController {
 		return "category/egovCategoryList";
 	}
 
-	@RequestMapping(value = "/category/addCategory.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/category/addCategory.do", method = RequestMethod.GET)
 	public String addCategoryView(@ModelAttribute("searchVO") SearchCategoryDto searchVO, Model model) throws Exception {
 		model.addAttribute("categoryDto", new CategoryDto());
 		return "category/egovCategoryRegister";
@@ -71,7 +71,7 @@ public class EgovCategoryController {
 		return "forward:/category/egovCategoryList.do";
 	}
 
-	@RequestMapping("/category/updateCategoryView.do")
+	@RequestMapping(value = "/category/updateCategoryView.do", method = RequestMethod.GET)
 	public String updateCategoryView(@RequestParam("selectedId") Long id, @ModelAttribute("searchVO") SearchCategoryDto searchVO, Model model) throws Exception {
 		CategoryDto categoryDto = new CategoryDto();
 		categoryDto.setId(id);

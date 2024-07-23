@@ -11,16 +11,17 @@
         <!--
         /* 글 수정 화면 function */
         function fn_egov_select(id) {
-        	document.listForm.selectedId.value = id;
-           	document.listForm.action = "<c:url value='/category/updateCategoryView.do'/>";
-           	document.listForm.submit();
+//         	document.listForm.selectedId.value = id;
+//            	document.listForm.action = "<c:url value='/category/updateCategoryView.do'/>";
+//            	document.listForm.submit();
+            document.location.href = "<c:url value='/category/updateCategoryView.do'/>?selectedId=" + id;
         }
         
         /* 글 등록 화면 function */
         function fn_egov_addView() {
-           	document.listForm.action = "<c:url value='/category/addCategory.do'/>";
-           	document.listForm.submit();
-           	//document.location.href = "./addCategory.do";
+//            	document.listForm.action = "<c:url value='/category/addCategory.do'/>";
+//            	document.listForm.submit();
+           document.location.href = "<c:url value='/category/addCategory.do'/>";
         }
         
         /* 글 목록 화면 function */
