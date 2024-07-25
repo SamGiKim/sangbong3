@@ -1175,4 +1175,28 @@ public String 메소드명(매개변수) {
         ...
         return "Template엔진의 화면파일이름명";
         // resources/templates/* 에서부터 화면파일이름명[.html] 찾아서 응답으로 리턴한다..
+        return "redirect:URL주소"; // 화면파일이 아니라 URL 주소를 호출하라고 클라이언트에 응답합니다.
 }
+
+@GetMapping == @RequestMapping(method = RequestMethod.GET)
+public String 메소드명(@RequestParam 클래스Dto형/기본데이터형 변수명, ...)
+@RequestParam 매개변수 는 URL 주소에서 ?변수명1=값&변수명2=값&변수명3=값... 데이터를 전송한다.
+
+@PostMapping == @RequestMapping(method = RequestMethod.POST)
+public String 메소드명(@ModelAttribute 클래스Dto형 변수명, ...)
+@ModelAttribute 매개변수 는 주소에 나타나지 않고 숨긴채로 WEB서버/WAS 에 데이터를 전송한다.
+
+public String 메소드명(Model model, ...) {
+        model.addAttribute("Template엔진의 화면파일이름명에서 사용할단어", 리터럴값/변수값/객체값);
+        return "Template엔진의 화면파일이름명";
+}
+
+Thymeleaf 은 th:object="${사용할단어}" : 객체
+th:each="변수명 : ${사용할단어}" : List형객체
+
+jsp <c:out : 객체
+
+
+Mustach 는 {{사용할단어}}  : 객체
+{{#사용할단어}} ~ {{/사용할단어}}  : List형객체
+
