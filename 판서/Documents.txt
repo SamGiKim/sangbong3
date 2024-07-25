@@ -1077,6 +1077,89 @@ MS-DOS 시절의 배치파일 *.bat
 
 css position :
 static :
-relative : 이전 요쇼를 기준으로 상대위치 좌표
+relative : 이전 요소를 기준으로 상대위치 좌표
 absolute : 부모가 relative 일 경우에 상대위치 좌표, 이것 외에는 화면의 0,0 기준으로 상대위치 좌표
 fixed : 화면의 절대 위치 좌표
+
+
+SpringBoot Mybatis
+RDBMS 테이블의 CRUD 기본 SQL 명령어를 resources/mapper/테이블명/테이블명.xml 파일에 작성한다.
+<mapper namespace="aaa.bbb.ccc.xxxxx.Mapper인터페이스명">
+<insert id="insert메소드명" parameterType="insert되는클래스Dto" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO 테이블명(컬럼1, 컬럼2, ...., 컬럼n)
+        VALUES(#{컬럼1의 멤버변수명}, #{컬럼2의 멤버변수명}, ...., #{컬럼n의 멤버변수명})
+</insert>
+
+<update id="update메소드명" parameterType="update되는클래스Dto">
+        UPDATE 테이블명
+        SET 컬럼1 = #{컬럼1의 멤버변수명},
+                컬럼2 = #{컬럼2의 멤버변수명},
+                ...
+                컬럼n = #{컬럼n의 멤버변수명},
+        WHERE ID = #{id}
+</update>
+
+<delete id="deleteById">
+        DELETE FROM 테이블명
+        WHERE id = #{id}
+</delete>
+
+<select id="select메소드명(findById)" resultType="DB에서 select되는클래스Dto">
+        SELECT 컬럼1
+                , 컬럼2
+                , ...
+                , 컬럼n
+        FROM 테이블명
+        WHERE id = #{id}
+</select>
+
+<select id="select메소드명(findAllBy)" resultType="DB에서 select되는클래스Dto List>
+        SELECT 컬럼1
+                , 컬럼2
+                , ...
+                , 컬럼n
+        FROM 테이블명
+        WHERE 조회조건
+</select>
+
+aaa.bbb.ccc.xxxxx.Mapper인터페이스명 Java 파일을 생성한다.
+
+import org.apache.ibatis.annotations.Mapper;
+
+@Mapper
+public interface Mapper인터페이스명 {
+        void insert메소드명(insert되는클래스Dto 변수);
+        void update메소드명(update되는클래스Dto 변수);
+        void deleteById(Long id);
+        select되는클래스Dto findById(Long id);
+        List<select되는클래스Dto> findAllByNameContains(String name);
+}
+
+SpringBoot Mybatis 설정
+pom.xml 또는 build.gradle 파일에 dependencies 추가
+groupId : org.mybatis.spring.boot
+artifactId : mybatis-spring-boot-starter
+version : 3.0.3
+
+application.properties 또는 application.yml 파일에 설정 추가
+# mybatis
+mybatis.mapper-locations = classpath:mapper/**/*.xml
+mybatis.configuration.map-underscore-to-camel-case = true
+mybatis.type-aliases-package = aaa.bbb.ccc
+
+또는 MybatisConfig.java 파일에 소스 코딩 한다.
+@MapperScan(basePackages = "aaa.bbb.ccc")
+public class MyBatisConfig {
+
+    @Bean
+    public SqlSessionFactory sqlSessionFactory (DataSource dataSource) throws Exception {
+        ...
+        sqlSessionFactoryBean.setTypeAliasesPackage("com.softagape.mybatisprj");
+        sqlSessionFactoryBean.setMapperLocations(
+                applicationContext.getResources("classpath:/mapper/**/*.xml"
+        ));
+        ...
+    }
+ 
+    ...
+}
