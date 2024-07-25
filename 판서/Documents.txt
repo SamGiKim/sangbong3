@@ -1163,3 +1163,16 @@ public class MyBatisConfig {
  
     ...
 }
+
+
+Template 엔진 (jsp, Thymeleaf, Freemaker, Mustache, GroovyTemplate) 의 SpringBoot Web 프로젝트는
+@Controller 의 클래스에서 WEB URL 주소 요청을 처리한다.
+
+@RequestMapping("url context")
+
+@GetMapping/@PostMapping
+public String 메소드명(매개변수) {
+        ...
+        return "Template엔진의 화면파일이름명";
+        // resources/templates/* 에서부터 화면파일이름명[.html] 찾아서 응답으로 리턴한다..
+}

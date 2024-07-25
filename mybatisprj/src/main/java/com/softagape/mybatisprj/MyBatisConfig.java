@@ -25,7 +25,7 @@
 //        sqlSessionFactoryBean.setDataSource(dataSource);
 //        sqlSessionFactoryBean.setTypeAliasesPackage("com.softagape.mybatisprj");
 //        sqlSessionFactoryBean.setMapperLocations(
-//                applicationContext.getResources("classpath:/mymapper/**/*.xml"
+//                applicationContext.getResources("classpath:/mapper/**/*.xml"
 //                ));
 //        return sqlSessionFactoryBean.getObject();
 //    }
