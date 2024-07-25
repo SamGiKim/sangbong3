@@ -64,6 +64,8 @@ public class CategoryWebController {
             model.addAttribute("KJSData", find);
         } catch (Exception ex) {
             log.error(ex.toString());
+            model.addAttribute("error_message", "서버 에러입니다. 관리자에게 문의 하세요.");
+            return "error/error_save";  // resources/templates 폴더안의 화면파일
         }
         return "oldhtml/category_view";  // resources/templates 폴더안의 화면파일
     }
