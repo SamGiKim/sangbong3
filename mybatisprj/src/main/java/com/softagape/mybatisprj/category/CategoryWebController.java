@@ -21,10 +21,17 @@ public class CategoryWebController {
     }
 
     @GetMapping("/oldhtml/category_old")    // 브라우저의 URL 주소
-    public String categoryOld(Model model) {
+    public String categoryOld(Model model, @RequestParam String name, @RequestParam int page) {
         try {
-            List<ICategory> allList = this.categoryService.getAllList();
+            if (name == null) {
+                name = "";
+            }
+//            List<ICategory> allList = this.categoryService.getAllList();
+            SearchCategoryDto searchCategoryDto = SearchCategoryDto.builder()
+                    .name(name).page(page).build();
+            List<ICategory> allList = this.categoryService.findAllByNameContains(searchCategoryDto);
             model.addAttribute("allList", allList);
+            model.addAttribute("searchCategoryDto", searchCategoryDto);
         } catch (Exception ex) {
             log.error(ex.toString());
             model.addAttribute("error_message", "오류가 발생했습니다. 관리자에게 문의하세요.");
@@ -46,7 +53,7 @@ public class CategoryWebController {
             model.addAttribute("error_message", dto.getName() + " 중복입니다.");
             return "error/error_save";  // resources/templates 폴더안의 화면파일
         }
-        return "redirect:category_old";  // 브라우저 주소를 redirect 한다.
+        return "redirect:category_old?page=1&name=";  // 브라우저 주소를 redirect 한다.
     }
 
     @GetMapping("/oldhtml/category_old_view")    // 브라우저의 URL 주소
@@ -88,7 +95,7 @@ public class CategoryWebController {
             model.addAttribute("error_message", categoryDto.getName() + " 중복입니다.");
             return "error/error_save";  // resources/templates 폴더안의 화면파일
         }
-        return "redirect:category_old";
+        return "redirect:category_old?page=1&name=";
     }
 
     @GetMapping("/oldhtml/category_old_delete")
@@ -109,6 +116,6 @@ public class CategoryWebController {
             model.addAttribute("error_message", "서버 에러입니다. 관리자에게 문의 하세요.");
             return "error/error_save";  // resources/templates 폴더안의 화면파일
         }
-        return "redirect:category_old";
+        return "redirect:category_old?page=1&name=";
     }
 }

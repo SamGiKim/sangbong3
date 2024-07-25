@@ -1120,6 +1120,14 @@ RDBMS 테이블의 CRUD 기본 SQL 명령어를 resources/mapper/테이블명/�
                 , 컬럼n
         FROM 테이블명
         WHERE 조회조건
+                # MySQL/MariaDB
+                name like CONCAT('%',#{search},'%')
+                # Oracle
+                name like '%' ||  #{search} || '%'
+                # MSSQL
+                name like '%' + #{search} + '%'
+        ORDER BY 정렬단어
+        LIMIT 페이지당갯수 OFFSET 1페이지:0, 2페이지:1*페이지당갯수, 3페이지:2*페이지당갯수
 </select>
 
 aaa.bbb.ccc.xxxxx.Mapper인터페이스명 Java 파일을 생성한다.
