@@ -886,6 +886,12 @@ main     makeKakaoId  makeKakaoGeoMap(브랜치생성)
 main (makeKakaoId 브랜치와 병합, merge)
 
 
+git 클라이언트 툴
+대부분의 클라이언트 툴은 계정과 암호를 입력해서 git 서버에 연결해준다.
+github.com = github desktop
+bitbucket.org = sourcetree client
+git.lge.com = fork client
+tortoisegit : 계정과 암호로 로그인을 하지 않아도 된다.
 
 
 
