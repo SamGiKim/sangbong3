@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>Old Html</title>
+    <title>Title</title>
     <link rel="stylesheet" href="/mazer/assets/compiled/css/app.css">
     <link rel="stylesheet" href="/mazer/assets/compiled/css/app-dark.css">
     <link rel="stylesheet" href="/mazer/assets/compiled/css/iconly.css">
@@ -17,17 +17,27 @@
             let startPage = getStartPage(page);
             let totPage = getEndPage(startPage);
             let searchName = [[${searchCategoryDto.name}]];
+            let sClass = "btn btn-success rounded-pill";
+            let prev = (page-1) < startPage ? startPage : page-1;
+            let next = (page+1) >= totPage ? totPage : page+1;
+
+            $("#pageDiv").append(" <a class='" + sClass + "' href='category_list?page=" + prev +
+                "&name=" + searchName + "'>Prev</a> ");
             for (let i = startPage; i <= totPage; i++) {
-                let sClass = "btn btn-success rounded-pill";
                 if (page == i) {
                     sClass = "btn btn-primary rounded-pill";
+                } else {
+                    sClass = "btn btn-success rounded-pill";
                 }
-                $("#pageDiv").append(" <a class='" + sClass + "' href='category_old?page=" + i +
+                $("#pageDiv").append(" <a class='" + sClass + "' href='category_list?page=" + i +
                     "&name=" + searchName + "'>" + i + "</a> ");
             }
+            $("#pageDiv").append(" <a class='" + sClass + "' href='category_list?page=" + next +
+                "&name=" + searchName + "'>Next</a> ");
         });
 
         function getStartPage(page) {
+            // 1~10 => 1, 11~20 => 11, 21~30 => 21
             let startPage = ((page - 1) / 10) * 10 + 1;
             return startPage;
         }
@@ -46,57 +56,35 @@
             }
             return totPage;
         }
-
-        function categoryInsert() {
-            let name = $("#name").val();
-            let ret = confirm(name + " 추가 하시겠습니까 ?");
-            return ret;
-        }
     </script>
 </head>
 <body>
-    <form id="form" name="form" method="post" action="/ctweb/oldhtml/category_old_act" onsubmit="return categoryInsert();">
-        <label for="id"></label><input type="number" id="id" name="id"/>
-        <label for="name"></label><input type="text" id="name" name="name" />
-        <input type="submit" value="전송"/>
-        <input type="reset" value="취소"/>
-    </form>
-    <div>
-        Category List
-    </div>
-    <section id="content-types">
-        <div class="row">
-            <div class="col-xl-4 col-md-6 col-sm-12" th:each="node : ${allList}">
-                <div class="card">
-                    <a th:href="@{/ctweb/oldhtml/category_old_view(id=${node.id})}">
-                    <div class="card-content">
-                        <div class="card-body" th:text="${node.id}"></div>
-                        <div class="card-text" th:text="${node.name}"></div>
-                    </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-    <div id="pageDiv">
-    </div>
-    [(${pageHtml})]
-    <div>total : [[${searchCategoryDto.total}]], page : [[${searchCategoryDto.page}]], search name = [[${searchCategoryDto.name}]]</div>
-    <ul id="categoryList">
-        <li>
-            <span>id</span>
+<form th:action="@{category_list}" method="get">
+    <span>검색이름</span>
+    <input type="text" th:field="${searchCategoryDto.name}"/>
+    <input type="hidden" th:field="${searchCategoryDto.page}" />
+    <input type="submit" value="검색"/>
+</form>
+<div>
+    Category List
+</div>
+<ul id="categoryList">
+    <li>
+        <span>id</span>
+        <span> : </span>
+        <span>name</span>
+    </li>
+    <li th:each="item : ${categoryList}">
+        <a th:href="@{category_view(id=${item.id})}">
+            <span th:text="${item.id}"></span>
             <span> : </span>
-            <span>name</span>
-        </li>
-        <li th:each="item : ${allList}">
-            <a th:href="@{/ctweb/oldhtml/category_old_view(id=${item.id})}">
-                <span th:text="${item.id}"></span>
-                <span> : </span>
-                <span th:text="${item.name}"></span>
-            </a>
-        </li>
-    </ul>
+            <span th:text="${item.name}"></span>
+        </a>
+    </li>
+</ul>
+<div>total : [[${searchCategoryDto.total}]]</div>
+<div><a href="category_add"><button>추가</button></a></div>
+<div id="pageDiv">
+</div>
 </body>
-<script>
-</script>
 </html>
