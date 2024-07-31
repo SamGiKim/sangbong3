@@ -48,7 +48,7 @@
         SELECT id
              , name
         FROM category_tbl
-        WHERE name like CONCAT('%',#{name},'%')
+        WHERE name like CONCAT('%',#{searchName},'%')
         ORDER BY ${orderByWord}
         LIMIT #{rowsOnePage} OFFSET #{firstIndex}
     </select>

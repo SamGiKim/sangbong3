@@ -16,10 +16,10 @@ public class CatWebController {
     private CategoryServiceImpl categoryService;
 
     @GetMapping("/category_list")
-    public String categoryList(Model model, @RequestParam int page, @RequestParam String name) {
+    public String categoryList(Model model, @RequestParam int page, @RequestParam String searchName) {
         try {
             SearchCategoryDto searchCategoryDto = SearchCategoryDto.builder()
-                    .page(page).name(name).build();
+                    .page(page).searchName(searchName).build();
             int total = this.categoryService.countAllByNameContains(searchCategoryDto);
             List<ICategory> list = this.categoryService.findAllByNameContains(searchCategoryDto);
             searchCategoryDto.setTotal(total);
