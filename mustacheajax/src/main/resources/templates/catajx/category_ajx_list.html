@@ -24,12 +24,15 @@
                 type: "POST",
                 datatype: "JSON",
                 data: JSON.stringify({"page": page, "searchName":searchName}),
-                contentType: "application/json; charset=UTF-8"
+                contentType: "application/json; charset=UTF-8",
             }).done(function(data, status, xhr){
                 console.log("done:data=" + data + ", status=", status, ", xhr=", xhr);
                 if (status === "success") {
                     $.showCategoryList(data);
                 }
+            }).fail(function(jqXHR, status, errorThrown) {
+                console.log("done:jqXHR=" + jqXHR + ", status=", status, ", errorThrown=", errorThrown);
+                alert("검색을 실패했습니다.");
             })
         }
 
@@ -37,7 +40,7 @@
             if (categoryList == null) {
                 return;
             }
-            let list = $("#categoryList");
+            const list = $("#categoryList");
             list.children().remove();
             list.append("<li><span>id</span><span> : </span><span>name</span></li>");
             for( let i = 0; i < categoryList.length; i++ ) {
@@ -63,15 +66,18 @@
                 if (status === "success") {
                     $.showCategoryInfo(data);
                 }
+            }).fail(function(jqXHR, status, errorThrown) {
+                console.log("done:jqXHR=" + jqXHR + ", status=", status, ", errorThrown=", errorThrown);
+                alert("보기 실패했습니다.");
             })
         }
 
-        $.showCategoryInfo = function(categoryDto) {
-            if (categoryDto == null) {
+        $.showCategoryInfo = function(item) {
+            if (item == null) {
                 return;
             }
-            $("#id").val(categoryDto.id);
-            $("#name").val(categoryDto.name);
+            $("#id").val(item.id);
+            $("#name").val(item.name);
         }
 
         function getStartPage(page) {
@@ -109,7 +115,7 @@
         <span>name</span>
     </li>
     <li>
-        <div onclick="viewCategory();">
+        <div onclick="$.viewCategory(1);">
             <span >id</span>
             <span> : </span>
             <span >name</span>

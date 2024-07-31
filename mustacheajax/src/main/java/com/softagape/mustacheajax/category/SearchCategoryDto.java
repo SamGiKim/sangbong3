@@ -21,5 +21,5 @@ public class SearchCategoryDto {
     }
 
     private Integer page;
-        private int total;
+    private Integer total;
 }
