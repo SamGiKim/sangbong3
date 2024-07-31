@@ -48,7 +48,7 @@ public class CatWebController {
         } catch (Exception ex) {
             log.error(ex.toString());
         }
-        return "redirect:category_list?page=1&name=";
+        return "redirect:category_list?page=1&searchName=";
     }
 
     @GetMapping("/category_view")
@@ -69,7 +69,7 @@ public class CatWebController {
         } catch (Exception ex) {
             log.error(ex.toString());
         }
-        return "redirect:category_list?page=1&name=";
+        return "redirect:category_list?page=1&searchName=";
     }
 
     @GetMapping("/category_delete")
@@ -79,6 +79,6 @@ public class CatWebController {
         } catch (Exception ex) {
             log.error(ex.toString());
         }
-        return "redirect:category_list?page=1&name=";
+        return "redirect:category_list?page=1&searchName=";
     }
 }
