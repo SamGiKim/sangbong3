@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="/mazer/assets/compiled/css/app-dark.css">
     <link rel="stylesheet" href="/mazer/assets/compiled/css/iconly.css">
     <script language="JavaScript" src="/js/jquery-3.7.1.min.js"></script>
+    <style>
+        .itemRow {
+            width: fit-content;
+        }
+    </style>
     <script>
         let page = 0;
         let total = 0;
@@ -27,6 +32,12 @@
             $("#deleteButton").click(function() {
                 $.delete();
             })
+
+            $("#searchName").on("keyup",function(key) {
+                if( key.keyCode === 13 ) {
+                    $.searchCategoryList(1);
+                }
+            });
         });
 
         $.idAsc = function() {
@@ -55,6 +66,8 @@
 
         $.searchCategoryList = function(pPage) {
             page = pPage;
+            $("#id").val("");
+            $("#name").val("");
             let searchName = $("#searchName").val();
             $.ajax({
                 url: "/ct/searchName",
@@ -81,11 +94,10 @@
             }
             const list = $("#categoryList");
             list.children().remove();
-            list.append("<li><span>id</span><span> : </span><span>name</span></li>");
             for( let i = 0; i < categoryList.length; i++ ) {
                 let id = categoryList[i].id;
                 let name = categoryList[i].name;
-                let strLi = "<li><div onClick='$.viewCategory(" + id + ");'><span>"
+                let strLi = "<li><div onClick='$.viewCategory(" + id + ");' class='itemRow'><span>"
                     + id + "</span><span> : </span><span>"
                     + name + "</span></div></li>";
                 list.append(strLi);
