@@ -133,4 +133,18 @@ public class CategoryController {
             return ResponseEntity.badRequest().build();
         }
     }
+
+    @PostMapping("/countName")
+    public ResponseEntity<Integer> countAllByNameContains(@RequestBody SearchCategoryDto searchCategoryDto) {
+        try {
+            if ( searchCategoryDto == null ) {
+                return ResponseEntity.badRequest().build();
+            }
+            int total = this.categoryService.countAllByNameContains(searchCategoryDto);
+            return ResponseEntity.ok(total);
+        } catch ( Exception ex ) {
+            logger.error(ex.toString());
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }
