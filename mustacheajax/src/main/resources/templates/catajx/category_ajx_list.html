@@ -8,16 +8,17 @@
     <link rel="stylesheet" href="/mazer/assets/compiled/css/iconly.css">
     <script language="JavaScript" src="/js/jquery-3.7.1.min.js"></script>
     <script>
-        let page = 1;
+        let page = 0;
         //$(document).ready(function(){
         //    // Jquery 는 html 문서가 로딩이 완료 되면 이 부분을 실행한다.
         //});
         $(function(){
             // jQuery 3.0 버전부터 실행할 기능을 정의해주세요.
-            $.searchCategoryList();
+            $.searchCategoryList(1);
         });
 
-        $.searchCategoryList = function() {
+        $.searchCategoryList = function(pPage) {
+            page = pPage;
             let searchName = $("#searchName").val();
             $.ajax({
                 url: "/ct/searchName",
@@ -28,7 +29,8 @@
             }).done(function(data, status, xhr){
                 console.log("done:data=" + data + ", status=", status, ", xhr=", xhr);
                 if (status === "success") {
-                    $.showCategoryList(data);
+                    $.showCategoryList(data.dataList);
+                    $.makePageUI(data.total, page, searchName);
                 }
             }).fail(function(jqXHR, status, errorThrown) {
                 console.log("done:jqXHR=" + jqXHR + ", status=", status, ", errorThrown=", errorThrown);
@@ -80,6 +82,29 @@
             $("#name").val(item.name);
         }
 
+        $.makePageUI = function(total, page, searchName) {
+            let totPage = ~~((total + 9) / 10);
+            let startPage = getStartPage(page);
+            let endPage = getEndPage(startPage, total);
+            let sClass = "btn btn-success rounded-pill";
+            let prev = (page-1) < 1 ? 1 : page-1;
+            let next = (page+1) >= totPage ? totPage : page+1;
+
+            $("#pageDiv").children().remove();
+            $("#pageDiv").append(" <a class='" + sClass + "' onclick='$.searchCategoryList("
+                + prev + ");'>Prev</a> ");
+            for (let i = startPage; i <= endPage; i++) {
+                if (page == i) {
+                    sClass = "btn btn-primary rounded-pill";
+                }
+                $("#pageDiv").append(" <a class='" + sClass + "' onclick='$.searchCategoryList("
+                    + i + ");'>" + i + "</a> ");
+                sClass = "btn btn-success rounded-pill";
+            }
+            $("#pageDiv").append(" <a class='" + sClass + "' onclick='$.searchCategoryList("
+                + next + ");'>Next</a> ");
+        }
+
         function getStartPage(page) {
             // 1~10 => 1, 11~20 => 11, 21~30 => 21
             // let startPage = ((page - 1) / 10) * 10 + 1;
@@ -103,7 +128,7 @@
 <div>
     <label for="searchName">검색이름</label><input type="text" id="searchName" name="searchName" value=""/>
     <input type="hidden" id="page" name="page" value="" />
-    <button onclick="$.searchCategoryList();">검색</button>
+    <button onclick="$.searchCategoryList(1);">검색</button>
 </div>
 <div>
     Category Ajax List
