@@ -196,22 +196,14 @@
             }).done(function(data, status, xhr){
                 console.log("done:data=" + data + ", status=", status, ", xhr=", xhr);
                 // delete 성공 완료시
-                $.getTotal();
-                let totPage = ~~((total + 9) / 10);
-                if ( totPage < page ) {
-                    page = totPage;
-                }
-                // 삭제 후에 검색식과 total 로 계산해서 page-1 결정해야 한다.
-                $.searchCategoryList(page);
-                $("#id").val("");
-                $("#name").val("");
+                $.doneDelete();
             }).fail(function(jqXHR, status, errorThrown) {
                 console.log("done:jqXHR=" + jqXHR + ", status=", status, ", errorThrown=", errorThrown);
                 alert("삭제를 실패했습니다.");
             })
         }
 
-        $.getTotal = function() {
+        $.doneDelete = function() {
             let searchName = $("#searchName").val();
             $.ajax({
                 url: "/ct/countName",
@@ -222,6 +214,15 @@
             }).done(function(data, status, xhr){
                 console.log("done:data=" + data + ", status=", status, ", xhr=", xhr);
                 total = data;
+                let totPage = ~~((total + 9) / 10);
+                if ( totPage < page ) {
+                    page = totPage;
+                }
+                // alert("delete : total=" + total + ", page=" + page);
+                // 삭제 후에 검색식과 total 로 계산해서 page-1 결정해야 한다.
+                $.searchCategoryList(page);
+                $("#id").val("");
+                $("#name").val("");
             }).fail(function(jqXHR, status, errorThrown) {
                 console.log("done:jqXHR=" + jqXHR + ", status=", status, ", errorThrown=", errorThrown);
             })
