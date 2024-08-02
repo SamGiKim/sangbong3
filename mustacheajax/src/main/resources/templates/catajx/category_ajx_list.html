@@ -190,7 +190,7 @@
             // 1~10 => 1, 11~20 => 11, 21~30 => 21
             // let startPage = ((page - 1) / 10) * 10 + 1;
             let one = 1;
-            let ten = ~~((page - 1) / rowsOnePage) * rowsOnePage;
+            let ten = ~~((page - 1) / 10) * 10;
             let startPage = ten + one;
             return ~~(startPage);
         }
@@ -201,7 +201,7 @@
             // 1~56, 시작페이지 : 21,22,23,24,25,26,27,28,29,30 => end = 30
             // 1~56, 시작페이지 : 51,52,53,54,55,56 => end = 56
             let totPage = ~~((paramTotal + rowsOnePage - 1) / rowsOnePage);
-            let tPage = startPage + rowsOnePage - 1;
+            let tPage = startPage + 9;
             if ( tPage < totPage ) {
                 return ~~(tPage);
             }
@@ -273,7 +273,7 @@
                 $.doneDelete();
                 // 앞의 문장이 비동기 통신처리 하므로 앞의 문장이 끝날때까지 기다리지 않고 바로 실행하므로 아래의 로직이 제대로 동작하지 않는다.
                 // total = $.doneDelete();
-                // let totPage = ~~((total + 9) / rowsOnePage);
+                // let totPage = ~~((total + rowsOnePage - 1) / rowsOnePage);
                 // if ( totPage < page ) {
                 //     page = totPage;
                 // }
