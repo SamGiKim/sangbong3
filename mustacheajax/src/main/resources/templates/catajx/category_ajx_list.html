@@ -43,6 +43,11 @@
                     $.searchCategoryList(1);
                 }
             });
+
+            $("#rowsOnePage").change(function() {
+                rowsOnePage = $("#rowsOnePage").val();
+                $.searchCategoryList(1);
+            });
         });
 
         $.idAsc = function() {  // jQuery 함수 선언
@@ -329,6 +334,16 @@
         <span>name
             <button onclick="$.nameAsc();">△</button>
             <button onclick="$.nameDesc();">▽</button>
+        </span>
+        <span> : </span>
+        <span>
+            <label for="rowsOnePage">Row</label>
+            <select id="rowsOnePage">
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+            </select>
         </span>
     </li>
 </ul>
