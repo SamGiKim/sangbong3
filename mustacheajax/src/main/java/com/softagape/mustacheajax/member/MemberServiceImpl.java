@@ -1,7 +1,9 @@
 package com.softagape.mustacheajax.member;
 
 import com.softagape.mustacheajax.SearchAjaxDto;
+import com.softagape.mustacheajax.security.dto.SignUpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,6 +12,9 @@ import java.util.List;
 public class MemberServiceImpl implements IMemberService {
     @Autowired
     private MemberMybatisMapper memberMybatisMapper;
+
+    @Autowired
+    private PasswordEncoder encoder;
 
     @Override
     public MemberDto findById(Long id) {
@@ -24,7 +29,16 @@ public class MemberServiceImpl implements IMemberService {
 
     @Override
     public MemberDto insert(MemberDto dto) throws Exception {
-        this.memberMybatisMapper.insert(dto);
+        return null;
+    }
+
+    @Override
+    public IMember addMember(SignUpRequest dto) {
+        MemberDto insert = MemberDto.builder().build();
+        insert.copyFields(dto);
+        insert.setPassword(encoder.encode(dto.getPassword()));
+        insert.setRole(MemberRole.USER.toString());
+        this.memberMybatisMapper.insert(insert);
         return dto;
     }
 
