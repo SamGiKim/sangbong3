@@ -1244,3 +1244,6 @@ gradle (Microsoft)
 maven (Microsoft)
 lombok (Microsoft)
 
+
+Mazer 같은 Bootstrap 은 Row 를 설정하는 기준이 12칸 입니다.
+class="화면클래스-숫자" 숫자를 더해서 12까지는 1줄로 표현한다.
