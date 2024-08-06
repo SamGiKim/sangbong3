@@ -27,7 +27,7 @@ public class CatWebController {
         try {
             SearchAjaxDto searchAjaxDto = SearchAjaxDto.builder()
                     .page(page).searchName(searchName).build();
-            // SearchCategoryDto 는 select Sql 쿼리문장을 만들때 where, order by, 페이지 문장을 만들때 사용한다.
+            // SearchAjaxDto 는 select Sql 쿼리문장을 만들때 where, order by, 페이지 문장을 만들때 사용한다.
             int total = this.categoryService.countAllByNameContains(searchAjaxDto);
             // 최종 목적지인 Mybatis 쿼리를 DB 에 countAllByNameContains 실행하고 결과를 리턴 받는다.
             // 검색식의 searchName 으로 찾은 데이터 행수를 리턴받는다. 화면의 페이지 계산에 사용된다.
@@ -35,13 +35,13 @@ public class CatWebController {
             // findAllByNameContains 쿼리 문장을 만들때 orderByWord, searchName, rowsOnePage, firstIndex 값을
             // 활용하여 쿼리 문장을 만들고 실행한다.
             searchAjaxDto.setTotal(total);
-            // searchCategoryDto.total 값을 저장한다.
+            // searchAjaxDto.total 값을 저장한다.
             model.addAttribute("categoryList", list);
             // Model 객체의 속성"categoryList" 과 list 값을 추가한다.
             // 화면템플릿 "catweb/category_list.html"의 속성이름"categoryList" 에서 list 값을 받는다.)
-            model.addAttribute("searchCategoryDto", searchAjaxDto);
-            // Model 객체의 속성"searchCategoryDto" 과 searchCategoryDto 값을 추가한다.
-            // 화면템플릿 "catweb/category_list.html"의 속성이름"searchCategoryDto" 에서 searchCategoryDto 값을 받는다.)
+            model.addAttribute("searchAjaxDto", searchAjaxDto);
+            // Model 객체의 속성"searchAjaxDto" 과 searchAjaxDto 값을 추가한다.
+            // 화면템플릿 "catweb/category_list.html"의 속성이름"searchAjaxDto" 에서 searchAjaxDto 값을 받는다.)
         } catch (Exception ex) {
             log.error(ex.toString()); // error 응답
         }

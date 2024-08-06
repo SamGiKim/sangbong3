@@ -142,9 +142,9 @@ public class CategoryController {
     @PostMapping("/searchName") // POST method : /ct/searchName
     public ResponseEntity<SearchAjaxDto> findAllByNameContains(@RequestBody SearchAjaxDto searchAjaxDto) {
         // ResponseEntity<데이터형> : http 응답을 http 응답코드와 리턴데이터형으로 묶어서 응답한다.
-        // SearchCategoryDto 데이터형를 JSON 문자열로 표현하여 리턴한다.
-        // @RequestBody SearchCategoryDto searchCategoryDto : JSON 문자열로 요청을 받는다.
-        //      다만 JSON 문자열의 데이터가 SearchCategoryDto 데이터형이어야 한다.
+        // SearchAjaxDto 데이터형를 JSON 문자열로 표현하여 리턴한다.
+        // @RequestBody SearchAjaxDto searchAjaxDto : JSON 문자열로 요청을 받는다.
+        //      다만 JSON 문자열의 데이터가 SearchAjaxDto 데이터형이어야 한다.
         //      {"searchName":"값", "sortColumn":"값", "sortAscDsc":"값", "page":값}
         try {
             if ( searchAjaxDto == null ) {
@@ -161,9 +161,9 @@ public class CategoryController {
                 return ResponseEntity.notFound().build(); // error 응답
             }
             searchAjaxDto.setTotal(total);
-            // SearchCategoryDto 응답결과에 total 을 추가한다.
+            // SearchAjaxDto 응답결과에 total 을 추가한다.
             searchAjaxDto.setDataList(list);
-            // SearchCategoryDto 응답결과에 List<ICategory> 을 추가한다.
+            // SearchAjaxDto 응답결과에 List<ICategory> 을 추가한다.
             return ResponseEntity.ok(searchAjaxDto);
             // 200 OK 와 result 데이터를 응답한다.
         } catch ( Exception ex ) {
@@ -175,8 +175,8 @@ public class CategoryController {
     @PostMapping("/countName")  // POST method : /ct/countName
     public ResponseEntity<Integer> countAllByNameContains(@RequestBody SearchAjaxDto searchAjaxDto) {
         // ResponseEntity<데이터형> : http 응답을 http 응답코드와 리턴데이터형으로 묶어서 응답한다.
-        // @RequestBody SearchCategoryDto searchCategoryDto : JSON 문자열로 요청을 받는다.
-        //      다만 JSON 문자열의 데이터가 SearchCategoryDto 데이터형이어야 한다.
+        // @RequestBody SearchAjaxDto searchAjaxDto : JSON 문자열로 요청을 받는다.
+        //      다만 JSON 문자열의 데이터가 SearchAjaxDto 데이터형이어야 한다.
         //      {"searchName":"값"}
         try {
             if ( searchAjaxDto == null ) {

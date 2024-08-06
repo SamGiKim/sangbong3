@@ -1,7 +1,6 @@
 package com.softagape.mustacheajax.security.controller;
 
 import com.softagape.mustacheajax.member.IMemberService;
-import com.softagape.mustacheajax.member.MemberDto;
 import com.softagape.mustacheajax.security.dto.SignUpRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
